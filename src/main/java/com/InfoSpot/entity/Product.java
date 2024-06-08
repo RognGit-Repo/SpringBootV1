@@ -13,6 +13,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //dfadfa
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
