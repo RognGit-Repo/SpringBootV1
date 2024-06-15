@@ -261,6 +261,78 @@ relationship.
 
 12.Create the table and relations in the sample postgre dvd rental database.
 
+13. Using chatgpt generate all the entity for the entity model with JPA annotations since the dvd rental database is
+very common chatgpt will know the context
 
+14. Testing the entities if it would create automatically in the new database called info-soft,
+
+	there is no intermediate entities example film_actor since it can be created automatically
+
+	Problem: The intermediate entities are not created
+
+
+	Use this
+	Parent Entity
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "entitya_entityb",
+            joinColumns = @JoinColumn(name = "entitya_id"),
+            inverseJoinColumns = @JoinColumn(name = "entityb_id"))
+    private Set<EntityB> entityBs = new HashSet<>();
+
+    Connected Entity
+    @ManyToMany(mappedBy = "entityBs")
+    private Set<EntityA> entityAs = new HashSet<>();
+
+
+15. Look at the special fields of staff and store, they both have foreignkey of each other.
+
+	staff -> store_id
+	store -> manager_staff_id
+
+
+	but the manager_staff_id is a staff but a manager property of store
+
+	We can also remove that manager_staff_id and put bool isManager property in the staff
+
+	However I think the reason why it was coded that way is that there is no need to traverse the
+	staff with matching store_id just to find whose the manager
+
+
+
+16. Since from original there is last_update column in each table we will also do that so that we can trace or filter
+	the data based on the date it was modified
+
+	Do not forget the annotation
+	@EntityListeners({ MyEntityListener.class })
+
+	to listen to events and run the callback functions
+
+	In Each table add
+	Intermediate Tables definitions
+	// Additional column definition
+               joinColumns = {
+                   @JoinColumn(name = "last_update")
+               }
+
+    Main Tables
+    @Column(name = "last_modified")
+    private LocalDateTime lastModified;
+
+    // Constructors, getters, setters
+
+    @PrePersist
+    protected void onCreate() {
+        lastModified = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastModified = LocalDateTime.now();
+    }
+
+    There is still bugs in this part since it produces a null value upon creation
+
+
+17.
 
  */

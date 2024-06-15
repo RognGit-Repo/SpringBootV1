@@ -18,10 +18,16 @@ public class ProductService {
 
     public void seedProduct()
     {
-        Object[] data={"Rommel", "Reyes", "rm@gmail.com"};
-        String sqlQuery="INSERT INTO products(first_name, last_name, email)\n" +
+//        Object[] data={"Ronald", "Reyes", "rn@gmail.com"};
+//        String sqlQuery="INSERT INTO products(first_name, last_name, email)\n" +
+//                "\n" +
+//                "VALUES(?, ?, ?)";
+//        jdbcTemplate.update(sqlQuery, data);
+
+        Object[] data={"Ronald", "Reyes"};
+        String sqlQuery="INSERT INTO actor(first_name, last_name)\n" +
                 "\n" +
-                "VALUES(?, ?, ?)";
+                "VALUES(?, ?)";
         jdbcTemplate.update(sqlQuery, data);
 
     }
