@@ -333,6 +333,41 @@ very common chatgpt will know the context
     There is still bugs in this part since it produces a null value upon creation
 
 
-17.
+17. Modifications on the table columns to match the original dvd_rental database and for the purpose of knowing the different
+	configurations of each column in tables
+
+	All
+	id generation type =nextval('actor_actor_id_seq'::regclass)
+	use
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_id_generator")
+    @SequenceGenerator(name = "actor_id_generator", sequenceName = "actor_actor_id_seq", allocationSize = 1)
+    private Long actorId; / private int actorId;
+
+
+	not_nullable columns
+	@Column(nullable = false) // Specify NOT NULL constraint
+
+	Actor
+	actor_id [int, not_nullable=true]
+	first_name [short /varcharr45, not_nullable=true]
+
+	use
+	@Size(max = 45) // Specify maximum length of 45 characters
+    private String name;
+
+
+    time to have  a now() postgre default value
+    createdAt
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+
+    small_int/short
+    private Short salary; // Using Short to map to smallint in PostgreSQL
+
+
 
  */
