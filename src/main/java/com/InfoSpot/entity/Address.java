@@ -13,31 +13,32 @@ import java.time.LocalDateTime;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_generator")
+    @SequenceGenerator(name = "address_id_generator", sequenceName = "address_address_id_seq", allocationSize = 1)
     @Column(name = "address_id")
     private int addressId;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Column(name = "address2")
     private String address2;
 
-    @Column(name = "district")
+    @Column(name = "district", nullable = false)
     private String district;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
     @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     // Constructors, getters, and setters
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

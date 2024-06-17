@@ -13,18 +13,19 @@ import java.time.LocalDateTime;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_id_generator")
+    @SequenceGenerator(name = "city_id_generator", sequenceName = "city_city_id_seq", allocationSize = 1)
     @Column(name = "city_id")
     private int cityId;
 
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

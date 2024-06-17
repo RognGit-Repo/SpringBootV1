@@ -13,22 +13,44 @@ import java.time.LocalDateTime;
 public class Staff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "staff_id_generator")
+    @SequenceGenerator(name = "staff_id_generator", sequenceName = "staff_staff_id_seq", allocationSize = 1)
     @Column(name = "staff_id")
     private int staffId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @Column(name = "last_modified")
+    @Column(name = "email")
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "picture")
+    private byte[] picture;
+
+
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
+
 
     // Constructors, getters, setters
 

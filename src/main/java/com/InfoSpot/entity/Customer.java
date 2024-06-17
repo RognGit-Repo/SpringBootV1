@@ -13,27 +13,28 @@ import java.time.LocalDateTime;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_generator")
+    @SequenceGenerator(name = "customer_id_generator", sequenceName = "customer_customer_id_seq", allocationSize = 1)
     @Column(name = "customer_id")
     private int customerId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "email")
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @Column(name = "activebool")
+    @Column(name = "activebool", nullable = false)
     private boolean active;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

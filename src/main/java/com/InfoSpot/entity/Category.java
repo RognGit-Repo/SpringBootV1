@@ -15,17 +15,18 @@ import java.util.Set;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_generator")
+    @SequenceGenerator(name = "category_id_generator", sequenceName = "category_category_id_seq", allocationSize = 1)
     @Column(name = "category_id")
     private int categoryId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Film> films = new HashSet<>();
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

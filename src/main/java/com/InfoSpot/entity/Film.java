@@ -15,11 +15,12 @@ import java.util.Set;
 public class Film {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "film_id_generator")
+    @SequenceGenerator(name = "film_id_generator", sequenceName = "film_film_id_seq", allocationSize = 1)
     @Column(name = "film_id")
     private int filmId;
 
-    @Column(name="title")
+    @Column(name="title", nullable = false)
     private String title;
 
     @Column(name="description")
@@ -28,23 +29,27 @@ public class Film {
     @Column(name="release_year")
     private int releaseYear;
 
-    @Column(name="rental_duration")
+    @Column(name="rental_duration", nullable = false)
     private int rentalDuration;
 
-    @Column(name="rental_rate")
+    @ManyToOne
+    @JoinColumn(name = "language_id", nullable = false)
+    private Language language;
+
+    @Column(name="rental_rate", nullable = false)
     private double rentalRate;
 
     @Column(name="length")
     private int length;
 
-    @Column(name="replacement_cost")
+    @Column(name="replacement_cost", nullable = false)
     private double replacementCost;
 
     @Column(name="rating")
     private String rating;
 
-    @Column(name = "special_features")
-    private String specialFeatures;
+    @Column(name = "special_features", columnDefinition = "text[]")
+    private String[] specialFeatures;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "film_actor",
@@ -58,7 +63,7 @@ public class Film {
             inverseJoinColumns = @JoinColumn(name = "actor_category"))
     private Set<Category> categories = new HashSet<>();
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

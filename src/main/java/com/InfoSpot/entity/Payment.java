@@ -14,25 +14,30 @@ import java.util.Date;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_id_generator")
+    @SequenceGenerator(name = "payment_id_generator", sequenceName = "payment_payment_id_seq", allocationSize = 1)
     @Column(name = "payment_id")
     private int paymentId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "rental_id")
+    @JoinColumn(name = "rental_id", nullable = false)
     private Rental rental;
 
-    @Column(name = "amount")
+    @ManyToOne
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
+
+    @Column(name = "amount", nullable = false)
     private double amount;
 
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", nullable = false)
     private Date paymentDate;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

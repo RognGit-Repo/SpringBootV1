@@ -1,10 +1,12 @@
 package com.InfoSpot.service;
 
 import com.InfoSpot.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ProductService {
     private ProductRepository productRepository;
     private JdbcTemplate jdbcTemplate;

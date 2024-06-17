@@ -16,14 +16,16 @@ import java.util.Set;
 public class Actor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_id_generator")
+    @SequenceGenerator(name = "actor_id_generator", sequenceName = "actor_actor_id_seq", allocationSize = 1)
     @Column(name = "actor_id")
     private int actorId;
 
-    @Column(name="first_name")
+    @Column(name="first_name", nullable = false)
+
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name="last_name", nullable = false)
     private String lastName;
 
 
@@ -31,7 +33,7 @@ public class Actor {
     private Set<Film> films = new HashSet<>();
 
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

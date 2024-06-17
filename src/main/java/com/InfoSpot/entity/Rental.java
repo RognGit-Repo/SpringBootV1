@@ -14,24 +14,30 @@ import java.util.Date;
 public class Rental {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rental_id_generator")
+    @SequenceGenerator(name = "rental_id_generator", sequenceName = "rental_rental_id_seq", allocationSize = 1)
     @Column(name = "rental_id")
     private int rentalId;
 
     @ManyToOne
-    @JoinColumn(name = "inventory_id")
+    @JoinColumn(name = "inventory_id", nullable = false)
     private Inventory inventory;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name = "rental_date")
+    @ManyToOne
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
+
+
+    @Column(name = "rental_date", nullable = false)
     private Date rentalDate;
 
     @Column(name = "return_date")
     private Date returnDate;
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

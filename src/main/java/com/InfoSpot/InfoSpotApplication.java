@@ -371,4 +371,40 @@ very common chatgpt will know the context
 
 	#Existing DB
 
+
+18. From above we used GenerationType.SEQUENCE  which requires additional configuration than simply using
+	GenerationType.IDENTITY
+
+	In DB set the property Default to a method that gets the nextVal of the sequence
+
+		Postgre
+		table->properties->default
+		type
+		nextval('actor_actor_id_seq'::regclass)
+
+19. In step 16, we added the last_update column, we also need to add the property to the defualt value
+
+		Postgre
+		table->properties->default
+		type
+		now()
+
+20. Optional [not necessary for  now], using the below dependency lets us create a column that has validation such as the min
+	or max size of String or the varChar(255) varChar(45) for intance
+
+
+
+	<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>6.2.0.Final</version> <!-- Replace with the latest version -->
+</dependency>
+
+	use
+	@Size(max = 45) // Specify maximum length of 45 characters
+    private String name;
+
+21. Add the not_nullable properties
+
+
  */

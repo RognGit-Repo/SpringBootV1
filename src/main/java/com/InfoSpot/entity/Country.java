@@ -13,14 +13,15 @@ import java.time.LocalDateTime;
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_id_generator")
+    @SequenceGenerator(name = "country_id_generator", sequenceName = "country_country_id_seq", allocationSize = 1)
     @Column(name = "country_id")
     private int countryId;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters

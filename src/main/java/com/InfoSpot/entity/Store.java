@@ -13,19 +13,20 @@ import java.time.LocalDateTime;
 public class Store {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "store_id_generator")
+    @SequenceGenerator(name = "store_id_generator", sequenceName = "store_store_id_seq", allocationSize = 1)
     @Column(name = "store_id")
     private int storeId;
 
     @ManyToOne
-    @JoinColumn(name = "manager_staff_id")
+    @JoinColumn(name = "manager_staff_id" , nullable = false)
     private Staff manager;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     // Constructors, getters, setters
