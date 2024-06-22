@@ -408,5 +408,28 @@ very common chatgpt will know the context
 
 
 
+22.Authentication and Authorization
+
+Adding authentication in springboot uses a class of WebSecurityConfigurerAdapter
+It overrides the configure method where chain of authentication rules are used
+
+***This means that there is no need to have a controller for all auth such as authUser for /login
+This are already handled in the example below
+
+http
+            .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home")
+                .permitAll()
+                .and()
+            .logout()
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
+
+
 
  */
