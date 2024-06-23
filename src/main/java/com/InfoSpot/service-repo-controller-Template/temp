@@ -1,0 +1,22 @@
+package com.InfoSpot.controller;
+
+import com.InfoSpot.service.ActorService;
+import org.springframework.beans.frentaly.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ActorController {
+
+    @Autowired
+    private ActorService rentalService;
+
+
+    @GetMapping("seed/rental")
+    public String seedActorTable()
+    {
+        rentalService.seedActor();
+        return "Done Seeding the database";
+    }
+
+}
