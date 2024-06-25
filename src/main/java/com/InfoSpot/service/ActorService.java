@@ -1,10 +1,13 @@
 package com.InfoSpot.service;
 
 
+import com.InfoSpot.entity.Actor;
 import com.InfoSpot.repository.ActorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,5 +33,18 @@ public class ActorService {
         Object[] obj={"Ronald", "Ronald"};
         String QueryString="INSERT INTO actor(first_name, last_name) VALUES(?,?)";
         jdbcTemplate.update(QueryString, obj);
+    }
+
+    public List<Actor> getAllActor()
+    {
+        String QueryString="SELECT * FROM actor";
+        return jdbcTemplate.query(QueryString, (rs, rowNum)->{
+                   Actor a=new Actor(
+
+                    );
+                   a.setActorId(rs.getInt("actor_id"));
+                    a.setFirstName(rs.getString("first_name"));
+                    return a;
+                    });
     }
 }
