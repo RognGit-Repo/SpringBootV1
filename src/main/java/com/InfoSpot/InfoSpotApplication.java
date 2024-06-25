@@ -430,6 +430,29 @@ http
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
 
+23. Run the python template builder that automates creating all the basic service, controller and repository
 
+24. Practice Connecting to react front-end since I used 5173 (React) and 8080 (springBoot), then
+	Add the cors config to enable accessing API from different port.
+
+	registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173") // Replace with your frontend URL
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
+
+    React Fetch side
+    const response = await fetch("http://localhost:8080/actor/getAll", {
+      headers: {
+        "Content-Type": "application/json",
+        // Add any other headers as needed
+      },
+      credentials: "include", // Include credentials such as cookies
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
 
  */
